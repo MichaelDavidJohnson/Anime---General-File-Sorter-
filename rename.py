@@ -2,6 +2,8 @@ import os
 import re
 import glob
 import shutil
+from tkinter import *
+from tkinter import filedialog
 def main():
      pathcount = 0
      totalcount = 0
@@ -9,10 +11,16 @@ def main():
      moved = None
      namemoved = []
      pathz = []
-     path1 = input("What is the first file path you want to use:\n")
-     pathz.append(path1)
-     path2 = input("What is the second file path you want to use:\n")
-     pathz.append(path2)
+     print("What is the first file path you want to use:\n")
+     root1=Tk()
+     root1.directory = filedialog.askdirectory()
+     pathz.append(root1.directory)
+     print("You have selected: ", root1.directory)
+     print("What is the second file path you want to use:\n")
+     root2=Tk()
+     root2.directory = filedialog.askdirectory()
+     pathz.append(root2.directory)
+     print("You have selected: ",root2.directory)
      text = input("Do you want to remove square brackets? Y/N\n")
      if text == 'Y' or text == 'y':
           for path in pathz:
@@ -43,7 +51,9 @@ def main():
                     if not name in namemoved:
                          currentcount+=1
                          print("Progress :", currentcount, "/", totalcount)
-                         print("Files are moving, do not close the window")
+                         #if  moved == True:
+                         #     print("Files are moving, do not close the window")
+                         #     moved = False
 
                     for i in range(25,-1,-1):
                          letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
@@ -61,6 +71,7 @@ def main():
                                         else:
                                              shutil.move(os.path.join(path, name),targetpath)
                                              namemoved.append(name)
+                                             moved = True
                                             
                               
                                    else:
@@ -70,8 +81,11 @@ def main():
                                         else:
                                              shutil.move(os.path.join(path, name),targetpath)
                                              namemoved.append(name)
+                                             moved = True
 
-
+                    if moved == True:
+                         print("Files are moving, do not close the window")
+                         moved = False
                     if len(namemoved) == 0:
                          print("Nothing needs to be moved!")
                          
