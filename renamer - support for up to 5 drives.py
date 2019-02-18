@@ -43,51 +43,118 @@ def main():
           pass
      condition2 = input("Do you want to move the files? Y/N\n")
      if condition2 == 'Y' or condition2 == 'y':
+          if text == 'n' or text == 'N':
+               if len(pathz) == 1:
+                    pass
+               for i in range(1,numb+1):
+                    j = (26//numb)*i
+                    alphabetstorage.append(j)
+               for path in pathz:
+                    files = os.listdir(path)
+                    for name in files:
+                         totalcount += 1
+               for path in pathz:
+                    files = os.listdir(path)
+                    for name in files:
+                         
+                         pattern = r'\[[^\]]*\] '
+                         pattern2 = r' \[[^\]]*\]'
+                         pattern3 = r'\[[^\]]*\]'
+                         tempname = str(name)
+                         tempname = re.sub(pattern,r'',tempname)
+                         tempname = re.sub(pattern2,r'',tempname)
+                         tempname = re.sub(pattern3,r'',tempname)
+                         
+                         if not name in namemoved:
+                              currentcount += 1
+                              print("Progress :", currentcount,"/",totalcount)
+                         for _ in range(0,26,1):
+                              letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+                              Cletters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+                              for lol in range(0,len(alphabetstorage)-1):
+                                   if tempname[0] == letters[_] or tempname[0] == Cletters[_]:
+                                        if _ in range(alphabetstorage[lol],alphabetstorage[lol+1]):
+                                             targetpath = pathz[lol]
+                                             if os.path.join(targetpath,name) == os.path.join(path,name):
+                                                  pass
+                                             else:
+                                                  if os.path.isdir(os.path.join(path,name)):
+                                                       shutil.move(os.path.join(path,name),os.path.join(targetpath,name))
+                                                       namemoved.append(name)
+                                                  
+                                                       moved = True
+                                                  else:
+                                                       shutil.copy(os.path.join(path,name),os.path.join(targetpath,name))
+                                                       os.remove(os.path.join(path,name))
+                                                       namemoved.append(name)
+                                                       moved =  True
+                                             if moved == True:
+                                                  print("Files are moving, do not close the window")
+                                                  moved = False
+                                             if len(namemoved) == 0:
+                                                  print("Nothing needs to be moved!")
 
-          if len(pathz) == 1:
-               pass
-          for i in range(1,numb+1):
+                                   
+          else:
+               if len(pathz) == 1:
+                    pass
+               for i in range(1,numb+1):
                                       
-               j = (26//numb) * i
-               alphabetstorage.append(j)
-          for path in pathz:
-               files = os.listdir(path)
-               for name in files:
-                    if not name in namemoved:
-                         currentcount += 1
-                         print("Progress :",currentcount,"/",totalcount)
-                    for _ in range(0,26,1):
-                         letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-                         Cletters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+                    j = (26//numb) * i
+                    alphabetstorage.append(j)
+               for path in pathz:
+                    files = os.listdir(path)
+                    for name in files:
+                         if not name in namemoved:
+                              currentcount += 1
+                              print("Progress :",currentcount,"/",totalcount)
+                         for _ in range(0,26,1):
+                              letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+                              Cletters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
                     
-                         for lol in range(0,len(alphabetstorage)-1):
-                              if name[0] == letters[_] or name[0] == Cletters[_]:
-                                   if  _  in range(alphabetstorage[lol],alphabetstorage[lol+1]):
-                                        targetpath = pathz[lol]
-                                        if os.path.join(targetpath,name) == os.path.join(path, name):
-                                             pass
-                                        else:
-                                             shutil.move(os.path.join(path, name),targetpath)
-                                             namemoved.append(name)
-                                             moved = True
-                                        if moved == True:
-                                             print("Files are moving, do not close the window")
-                                             moved = False
-                                        if len(namemoved) == 0:
-                                             print("Nothing needs to be moved!")
-                    if name[0] == 'z' or name [0] == 'Z':
-                         targetpath = pathz[len(alphabetstorage)-2]
-                         if os.path.join(targetpath,name) == os.path.join(path, name):
-                              pass
-                         else:
-                              shutil.move(os.path.join(path, name),targetpath)
-                              namemoved.append(name)
-                              moved = True
-                         if moved == True:
-                              print("Files are moving, do not close the window")
-                              moved = False
-                         if len(namemoved) == 0:
-                              print("Nothing needs to be moved!")
+                              for lol in range(0,len(alphabetstorage)-1):
+                                   if name[0] == letters[_] or name[0] == Cletters[_]:
+                                        if  _  in range(alphabetstorage[lol],alphabetstorage[lol+1]):
+                                             targetpath = pathz[lol]
+                                             if os.path.join(targetpath,name) == os.path.join(path, name):
+                                                  pass
+                                             else:
+                                                  if os.path.isdir(os.path.join(path,name)):
+                                                       shutil.move(os.path.join(path,name),os.path.join(targetpath,name))
+                                                       namemoved.append(name)
+                                                  
+                                                       moved = True
+                                                  else:
+                                                       shutil.copy(os.path.join(path,name),os.path.join(targetpath,name))
+                                                       os.remove(os.path.join(path,name))
+                                                       namemoved.append(name)
+                                                       moved =  True
+                                                  
+                                             if moved == True:
+                                                  print("Files are moving, do not close the window")
+                                                  moved = False
+                                             if len(namemoved) == 0:
+                                                  print("Nothing needs to be moved!")
+                         if name[0] == 'z' or name [0] == 'Z':
+                              targetpath = pathz[len(alphabetstorage)-2]
+                              if os.path.join(targetpath,name) == os.path.join(path, name):
+                                   pass
+                              else:
+                                   if os.path.isdir(os.path.join(path,name)):
+                                        shutil.move(os.path.join(path,name),os.path.join(targetpath,name))
+                                        namemoved.append(name)
+                                   
+                                        moved = True
+                                   else:
+                                        shutil.copy(os.path.join(path,name),os.path.join(targetpath,name))
+                                        os.remove(os.path.join(path,name))
+                                        namemoved.append(name)
+                                        moved =  True
+                              if moved == True:
+                                   print("Files are moving, do not close the window")
+                                   moved = False
+                              if len(namemoved) == 0:
+                                   print("Nothing needs to be moved!")
 
                          
 
